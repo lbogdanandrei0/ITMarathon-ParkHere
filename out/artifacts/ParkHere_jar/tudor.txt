@@ -1,0 +1,5 @@
+Tudor & 47.154728 & 27.604582
+Loc1 & false & 2021-05-21 & null
+Loc2 & true & 2021-05-24 & pass123
+Loc3 & false & 2021-05-21 & null
+Loc4 & true & 2021-05-25 & pass123

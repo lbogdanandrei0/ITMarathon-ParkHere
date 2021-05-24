@@ -22,8 +22,6 @@ public class ParkingLot implements Serializable {
     private float latitude;
     private float longitude;
 
-
-
     public ParkingLot()
     {
         ParkingLots = FXCollections.observableArrayList();
@@ -54,6 +52,10 @@ public class ParkingLot implements Serializable {
         this.parkingLotName = parkingLotName;
     }
 
+    public ObservableList<ParkingSlot> getParkingLots() {
+        return ParkingLots;
+    }
+
     public void initParkingLot(String fileName)
     {
         ParkingLots = FXCollections.observableArrayList();
@@ -76,8 +78,16 @@ public class ParkingLot implements Serializable {
                 String parkId = slotDetails[0];
                 boolean isReserved = Boolean.parseBoolean(slotDetails[1]);
                 LocalDate deadline = LocalDate.parse(slotDetails[2]);
-
                 ParkingSlot temp = new ParkingSlot(parkId, isReserved, deadline);
+                String pass;
+                if(isReserved) {
+                    pass = slotDetails[3];
+                    temp.setReservedPassword(pass);
+                }
+                else
+                {
+                    temp.setReservedPassword(null);
+                }
                 ParkingLots.add(temp);
             }
             reader.close();
@@ -99,7 +109,7 @@ public class ParkingLot implements Serializable {
             while(iterator.hasNext())
             {
                 ParkingSlot temp = iterator.next();
-                writer.write(String.format("%s & %s & %s", temp.getParkId(), temp.isReserved(), temp.getDeadline().toString()));
+                writer.write(String.format("%s & %s & %s & %s", temp.getParkId(), temp.isReserved(), temp.getDeadline().toString(), temp.getReservedPassword()));
                 writer.newLine();
             }
             writer.close();
@@ -117,9 +127,5 @@ public class ParkingLot implements Serializable {
     public int getNrOfSlots()
     {
         return this.ParkingLots.size();
-    }
-
-    public ObservableList<ParkingSlot> getParkingLots() {
-        return ParkingLots;
     }
 }

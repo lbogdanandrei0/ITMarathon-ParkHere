@@ -1,0 +1,6 @@
+Felicia & 47.14528 & 27.609352
+Loc1 & false & 2021-05-21 & null
+Loc2 & true & 2021-05-23 & parola
+Loc3 & true & 2021-05-23 & parola
+Loc4 & true & 2021-05-23 & parola
+Loc5 & true & 2021-05-25 & parola

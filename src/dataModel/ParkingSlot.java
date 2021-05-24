@@ -8,6 +8,8 @@ public class ParkingSlot {
     private boolean isReserved;
     private LocalDate deadline;
 
+    private String reservedPassword;
+
     public ParkingSlot(String parkId, boolean isReserved)
     {
         this.parkId = parkId;
@@ -41,6 +43,18 @@ public class ParkingSlot {
 
     public void setParkId(String parkId) {
         this.parkId = parkId;
+    }
+
+    public void setReservedPassword(String reservedPassword) {
+        this.reservedPassword = reservedPassword;
+    }
+
+    public String getReservedPassword() {
+        return reservedPassword;
+    }
+
+    public boolean tryToUnreserve(String password){
+        return password.equals(reservedPassword);
     }
 
     @Override

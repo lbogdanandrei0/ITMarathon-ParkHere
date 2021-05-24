@@ -1,6 +1,6 @@
 Palas & 47.15781 & 27.586088
-Loc2 & true & 2021-05-26
-Loc1 & false & 2021-05-16
-Loc4 & false & 2021-03-21
-Loc1 & true & 2021-05-24
-Loc5 & false & 2021-03-21
+Loc2 & false & 2021-05-21 & null
+Loc1 & true & 2021-05-24 & parola
+Loc4 & true & 2021-05-23 & 123
+Loc6 & false & 2021-05-21 & null
+Loc5 & false & 2021-03-21 & null

@@ -18,13 +18,6 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.Optional;
 
-//class JavaApplication
-//{
-//    public void function() {
-//        System.out.println("works");
-//    }
-//}
-
 public class Controller {
 
     private boolean markersInitialized = false;
@@ -42,49 +35,38 @@ public class Controller {
 
     public void initialize()
     {
-        final URL urlGoogleMaps = getClass().getResource("demo.html");
+        final URL urlGoogleMaps = getClass().getResource("googleMapsView.html");
         webEngine = map.getEngine();
         webEngine.load(urlGoogleMaps.toExternalForm());
-//        JavaApplication application2 = new JavaApplication();
-//        JSObject window = (JSObject) webEngine.executeScript("window");
-//        window.setMember("myVar", application2);
         map.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                System.out.println("Click");
                 if(!markersInitialized)
                     initMarkers();
                 String parkingLotName = (String) webEngine.executeScript("getSelectedMarker();");
-                if(!parkingLotName.equals("undefined"))
+                if(parkingLotName!= null && !parkingLotName.equals("undefined"))
                 {
                     ParkingLot temp = CityParkingLots.getInstance().getParkingLot(parkingLotName);
                     showDialog(temp);
                 }
-                System.out.println(parkingLotName);
             }
         });
     }
 
     private void initMarkers()
     {
+        markersInitialized = true;
         Iterator<ParkingLot> iterator = CityParkingLots.getInstance().getParkingLots().values().iterator();
         while(iterator.hasNext())
         {
             ParkingLot temp = iterator.next();
-            addParkingLotMarker(temp.getLongitude(), temp.getLatitude(), temp.getName());
+            addParkingLotMarker(temp.getLatitude(), temp.getLongitude(), temp.getName());
         }
     }
 
-    private void addParkingLotMarker(float longitude, float latitude, String name)
+    private void addParkingLotMarker(float latitude, float longitude, String name)
     {
-        //System.out.println("addMarker("+latitude+", "+ latitude + ",\"" + name + "\");");
         webEngine.executeScript("addMarker("+latitude+", "+ longitude + " ,\"" + name + "\" );");
-    }
-
-    public void handleButton()
-    {
-//        webEngine.executeScript("addMarker("+47.157999+", "+ 27.587386 + " ,\"palas\" );");
-//        webEngine.executeScript("addMarker("+47.157989+", "+ 27.587286 + " ,\"ceva\" );");
     }
 
     private void showDialog(ParkingLot parkingLot)
@@ -101,7 +83,7 @@ public class Controller {
             e.printStackTrace();
         }
         DialogController controller = loader.getController();
-        controller.setParkingSlots(parkingLot.getParkingLots());
+        controller.initReserveDialog(parkingLot.getParkingLots());
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
 
