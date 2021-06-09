@@ -1,0 +1,3 @@
+->Frameworks used: JavaFX  
+->APIs used: Google Maps API  
+->Design Patterns used: MVC, Singleton Pattern
